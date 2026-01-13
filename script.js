@@ -12,26 +12,32 @@ async function checkImage() {
   formData.append("image", fileInput.files[0]);
 
   result.innerHTML = "🔍 Checking image...";
+  result.style.color = "white";
 
   try {
     const response = await fetch(
-  "https://ai-image-detector-backend.onrender.com/detect",
-  {
-    method: "POST",
-    body: formData
-  }
-);
+      "https://ai-image-detector-backend.onrender.com/detect",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
 
+    if (!response.ok) {
+      throw new Error("Server error");
+    }
 
     const data = await response.json();
 
-    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
+    result.innerHTML = `
+      ✅ ${data.result}<br>
+      Confidence: ${data.confidence}
+    `;
     result.style.color = "#00ffcc";
 
   } catch (error) {
     console.error(error);
-    result.innerHTML = "❌ Backend not responding";
+    result.innerHTML = "❌ Backend not responding (wait 20 sec & retry)";
     result.style.color = "red";
   }
 }
-
