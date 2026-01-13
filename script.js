@@ -14,15 +14,20 @@ async function checkImage() {
   result.innerHTML = "🔍 Checking image...";
 
   try {
-    const response = await fetch(
-      "https://ai-image-detector-backend-z55k.onrender.com/detect",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+const response = await fetch(
+  "https://ai-image-detector-backend-z55k.onrender.com/detect",
+  {
+    method: "POST",
+    body: formData
+  }
+);
 
-    const data = await response.json();
+if (!response.ok) {
+  throw new Error("Server error");
+}
+
+const data = await response.json();
+
 
     result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
     result.style.color = "#00ffcc";
@@ -33,3 +38,4 @@ async function checkImage() {
     result.style.color = "red";
   }
 }
+
