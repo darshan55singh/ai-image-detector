@@ -1,41 +1,49 @@
-async function checkImage() {
-  const fileInput = document.getElementById("imageInput");
-  const result = document.getElementById("result");
+const input = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+const result = document.getElementById("result");
 
-  if (!fileInput.files.length) {
+input.addEventListener("change", () => {
+  const file = input.files[0];
+  if (!file) return;
+
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = "block";
+  result.innerHTML = "";
+});
+
+async function checkImage() {
+  if (!input.files.length) {
     result.innerHTML = "❌ Please upload an image first.";
-    result.style.color = "red";
+    result.className = "result error";
     return;
   }
 
-  const formData = new FormData();
-  formData.append("image", fileInput.files[0]);
+  result.innerHTML = "⏳ Analyzing image...";
+  result.className = "result";
 
-  result.innerHTML = "🔍 Checking image...";
+  const formData = new FormData();
+  formData.append("image", input.files[0]);
 
   try {
-const response = await fetch(
-  "https://ai-image-detector-backend-z55k.onrender.com/detect",
-  {
-    method: "POST",
-    body: formData
-  }
-);
+    const res = await fetch(
+      "https://ai-image-detector-backend-z55k.onrender.com/detect",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
 
-if (!response.ok) {
-  throw new Error("Server error");
-}
+    const data = await res.json();
 
-const data = await response.json();
+    if (data.result.includes("AI")) {
+      result.className = "result warning";
+    } else {
+      result.className = "result success";
+    }
 
-
-    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
-    result.style.color = "#00ffcc";
-
-  } catch (err) {
-    console.error(err);
-    result.innerHTML = "❌ Backend error.";
-    result.style.color = "red";
+    result.innerHTML = `${data.result}<br>Confidence: ${data.confidence}`;
+  } catch (e) {
+    result.innerHTML = "❌ AI service unavailable.";
+    result.className = "result error";
   }
 }
-
