@@ -5,19 +5,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
-    <h1>AI Image Detector</h1>
-    <p>Detect fake AI-generated images easily.</p>
+    <div class="card">
+      <h1>AI Image Detector</h1>
+      <p class="subtitle">Detect fake AI-generated images instantly</p>
 
-    <input type="file" id="imageInput" />
-    <br><br>
+      <input type="file" id="imageInput" accept="image/*" hidden />
+      <label for="imageInput" class="upload-btn">📤 Upload Image</label>
 
-    <button onclick="checkImage()">Check Image</button>
+      <img id="preview" class="preview" />
 
-    <p id="result"></p>
+      <button onclick="checkImage()">🔍 Check Image</button>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <footer>
+      <p>© 2026 AI Image Detector • Built by Darshan 🚀</p>
+    </footer>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
