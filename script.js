@@ -15,12 +15,13 @@ async function checkImage() {
 
   try {
     const response = await fetch(
-      "https://ai-image-detector-backend-XXXX.onrender.com/detect",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+  "https://ai-image-detector-backend.onrender.com/detect",
+  {
+    method: "POST",
+    body: formData
+  }
+);
+
 
     const data = await response.json();
 
@@ -33,3 +34,4 @@ async function checkImage() {
     result.style.color = "red";
   }
 }
+
