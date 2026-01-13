@@ -12,7 +12,7 @@ async function checkImage() {
   formData.append("image", fileInput.files[0]);
 
   result.innerHTML = "🔍 Checking image...";
-  result.style.color = "white";
+  result.style.color = "#00ffcc";
 
   try {
     const response = await fetch(
@@ -24,20 +24,20 @@ async function checkImage() {
     );
 
     if (!response.ok) {
-      throw new Error("Server error");
+      throw new Error("API failed");
     }
 
     const data = await response.json();
 
     result.innerHTML = `
       ✅ ${data.result}<br>
-      Confidence: ${data.confidence}
+      Confidence: ${data.confidence}%
     `;
     result.style.color = "#00ffcc";
 
   } catch (error) {
     console.error(error);
-    result.innerHTML = "❌ Backend not responding (wait 20 sec & retry)";
+    result.innerHTML = "❌ Backend not responding";
     result.style.color = "red";
   }
 }
