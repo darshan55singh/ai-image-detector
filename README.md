@@ -1,1 +1,1 @@
-# ai-image-detector
+.# ai-image-detector
