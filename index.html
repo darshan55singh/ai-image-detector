@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>AI Image Detector</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="container">
+  <div class="card">
     <h1>AI Image Detector</h1>
     <p>Detect fake AI-generated images instantly</p>
 
-    <input type="file" id="imageInput" accept="image/*" />
+    <input type="file" id="imageInput" accept="image/*" hidden />
+    <button class="upload" onclick="document.getElementById('imageInput').click()">
+      📤 Upload Image
+    </button>
 
-    <button onclick="checkImage()">🔍 Check Image</button>
+    <button class="check" onclick="checkImage()">
+      🔍 Check Image
+    </button>
 
     <div id="result"></div>
   </div>
