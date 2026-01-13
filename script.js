@@ -1,49 +1,35 @@
-const input = document.getElementById("imageInput");
-const preview = document.getElementById("preview");
-const result = document.getElementById("result");
-
-input.addEventListener("change", () => {
-  const file = input.files[0];
-  if (!file) return;
-
-  preview.src = URL.createObjectURL(file);
-  preview.style.display = "block";
-  result.innerHTML = "";
-});
-
 async function checkImage() {
-  if (!input.files.length) {
+  const fileInput = document.getElementById("imageInput");
+  const result = document.getElementById("result");
+
+  if (!fileInput.files.length) {
     result.innerHTML = "❌ Please upload an image first.";
-    result.className = "result error";
+    result.style.color = "red";
     return;
   }
 
-  result.innerHTML = "⏳ Analyzing image...";
-  result.className = "result";
-
   const formData = new FormData();
-  formData.append("image", input.files[0]);
+  formData.append("image", fileInput.files[0]);
+
+  result.innerHTML = "🔍 Checking image...";
 
   try {
-    const res = await fetch(
-      "https://ai-image-detector-backend-z55k.onrender.com/detect",
+    const response = await fetch(
+      "https://ai-image-detector-backend-XXXX.onrender.com/detect",
       {
         method: "POST",
         body: formData
       }
     );
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (data.result.includes("AI")) {
-      result.className = "result warning";
-    } else {
-      result.className = "result success";
-    }
+    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
+    result.style.color = "#00ffcc";
 
-    result.innerHTML = `${data.result}<br>Confidence: ${data.confidence}`;
-  } catch (e) {
-    result.innerHTML = "❌ AI service unavailable.";
-    result.className = "result error";
+  } catch (error) {
+    console.error(error);
+    result.innerHTML = "❌ Backend not responding";
+    result.style.color = "red";
   }
 }
