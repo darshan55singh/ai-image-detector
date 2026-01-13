@@ -1,59 +1,50 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #0f2027, #000);
-  color: #fff;
   min-height: 100vh;
+  background: radial-gradient(circle at top, #0f2027, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.card {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
   padding: 30px;
-  border-radius: 18px;
-  width: 350px;
+  border-radius: 12px;
+  width: 320px;
   text-align: center;
-  box-shadow: 0 0 30px rgba(0, 255, 200, 0.15);
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
 }
 
 h1 {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.subtitle {
+p {
   font-size: 14px;
   opacity: 0.8;
   margin-bottom: 20px;
 }
 
-.upload-btn {
-  display: block;
-  background: #00c9a7;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
+input[type="file"] {
+  width: 100%;
   margin-bottom: 15px;
-  color: #000;
-  font-weight: 600;
 }
 
 button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #00f2fe, #4facfe);
   border: none;
   border-radius: 8px;
+  background: linear-gradient(135deg, #00ffcc, #00bfff);
+  color: black;
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
@@ -63,32 +54,7 @@ button:hover {
   opacity: 0.9;
 }
 
-.preview {
-  display: none;
-  width: 100%;
-  margin: 15px 0;
-  border-radius: 10px;
-}
-
-.result {
+#result {
   margin-top: 15px;
-  font-weight: bold;
-}
-
-.success {
-  color: #00ffcc;
-}
-
-.warning {
-  color: #ffcc00;
-}
-
-.error {
-  color: #ff4d4d;
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 12px;
-  opacity: 0.6;
+  font-size: 15px;
 }
