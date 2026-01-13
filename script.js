@@ -1,44 +1,35 @@
 async function checkImage() {
-  const input = document.getElementById("imageInput");
+  const fileInput = document.getElementById("imageInput");
   const result = document.getElementById("result");
 
-  if (input.files.length === 0) {
-    result.innerText = "❌ Please upload an image first.";
+  if (!fileInput.files.length) {
+    result.innerHTML = "❌ Please upload an image first.";
     result.style.color = "red";
     return;
   }
 
-  result.innerText = "🔍 Analyzing image...";
-  result.style.color = "white";
+  const formData = new FormData();
+  formData.append("image", fileInput.files[0]);
 
-  const file = input.files[0];
+  result.innerHTML = "🔍 Checking image...";
 
-  const response = await fetch(
-    "https://api-inference.huggingface.co/models/umm-maybe/AI-image-detector",
-    {
-      method: "POST",
-      headers: {
-        "Authorization": "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"
-      },
-      body: file
-    }
-  );
+  try {
+    const response = await fetch(
+      "https://ai-image-detector-backend-z55k.onrender.com/detect",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (data.error) {
-    result.innerText = "⚠️ Error analyzing image.";
+    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
+    result.style.color = "#00ffcc";
+
+  } catch (err) {
+    console.error(err);
+    result.innerHTML = "❌ Backend error.";
     result.style.color = "red";
-    return;
-  }
-
-  const score = data[0].score;
-
-  if (score > 0.5) {
-    result.innerText = "🤖 AI-Generated Image Detected";
-    result.style.color = "orange";
-  } else {
-    result.innerText = "✅ Real Image Detected";
-    result.style.color = "lightgreen";
   }
 }
