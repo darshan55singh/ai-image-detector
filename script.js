@@ -1,20 +1,19 @@
 async function checkImage() {
-  const fileInput = document.getElementById("imageInput");
+  const file = document.getElementById("imageInput").files[0];
   const result = document.getElementById("result");
 
-  if (!fileInput.files.length) {
-    result.innerHTML = "❌ Please upload an image first.";
-    result.style.color = "red";
+  if (!file) {
+    result.innerHTML = "❌ Upload an image first";
     return;
   }
 
-  const formData = new FormData();
-  formData.append("image", fileInput.files[0]);
+  result.innerHTML = "🔍 AI analyzing image...";
 
-  result.innerHTML = "🔍 Checking image...";
+  const formData = new FormData();
+  formData.append("image", file);
 
   try {
-    const response = await fetch(
+    const res = await fetch(
       "https://ai-image-detector-backend-z55k.onrender.com",
       {
         method: "POST",
@@ -22,14 +21,13 @@ async function checkImage() {
       }
     );
 
-    const data = await response.json();
+    const data = await res.json();
 
-    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
-    result.style.color = "#00ffcc";
-
-  } catch (error) {
-    console.error(error);
-    result.innerHTML = "❌ Backend not responding";
-    result.style.color = "red";
+    result.innerHTML = `
+      <b>${data.label}</b><br>
+      Confidence: ${data.confidence}
+    `;
+  } catch (e) {
+    result.innerHTML = "❌ AI service not responding";
   }
 }

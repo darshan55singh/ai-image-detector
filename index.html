@@ -7,22 +7,19 @@
 </head>
 <body>
 
-  <div class="card">
-    <h1>AI Image Detector</h1>
-    <p>Detect fake AI-generated images instantly</p>
+<div class="card">
+  <h1>AI Image Detector</h1>
+  <p class="subtitle">Detect AI-generated images using real AI models</p>
 
-    <input type="file" id="imageInput" accept="image/*" hidden />
-    <button class="upload" onclick="document.getElementById('imageInput').click()">
-      📤 Upload Image
-    </button>
+  <input type="file" id="imageInput" accept="image/*" />
 
-    <button class="check" onclick="checkImage()">
-      🔍 Check Image
-    </button>
+  <button onclick="checkImage()">Analyze Image</button>
 
-    <div id="result"></div>
-  </div>
+  <div id="result"></div>
 
-  <script src="script.js"></script>
+  <p class="footer">Built by <b>Darshan</b> 🚀</p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
