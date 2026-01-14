@@ -1,17 +1,18 @@
 async function checkImage() {
   const fileInput = document.getElementById("imageInput");
-  const result = document.getElementById("result");
+  const resultDiv = document.getElementById("result");
 
   if (!fileInput.files.length) {
-    result.innerHTML = "❌ Please upload an image first.";
-    result.style.color = "red";
+    resultDiv.innerHTML = "❌ Please upload an image";
+    resultDiv.style.color = "red";
     return;
   }
 
   const formData = new FormData();
   formData.append("image", fileInput.files[0]);
 
-  result.innerHTML = "🔍 Analyzing image...";
+  resultDiv.innerHTML = "🔍 Analyzing image...";
+  resultDiv.style.color = "#00ffcc";
 
   try {
     const response = await fetch(
@@ -24,15 +25,16 @@ async function checkImage() {
 
     const data = await response.json();
 
-    result.innerHTML = `
+    console.log("BACKEND RESPONSE:", data); // 🔥 IMPORTANT
+
+    resultDiv.innerHTML = `
       <b>${data.result}</b><br>
       Confidence: ${data.confidence}
     `;
-    result.style.color = "#00ffcc";
 
   } catch (err) {
     console.error(err);
-    result.innerHTML = "❌ Backend not responding";
-    result.style.color = "red";
+    resultDiv.innerHTML = "❌ Backend error";
+    resultDiv.style.color = "red";
   }
 }
