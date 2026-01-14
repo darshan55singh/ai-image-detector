@@ -1,37 +1,37 @@
 async function checkImage() {
-  const file = document.getElementById("imageInput").files[0];
+  const fileInput = document.getElementById("imageInput");
   const result = document.getElementById("result");
 
-  if (!file) {
-    result.innerHTML = "❌ Upload an image first";
+  if (!fileInput.files.length) {
+    result.innerHTML = "❌ Please upload an image first.";
     result.style.color = "red";
     return;
   }
 
-  result.innerHTML = "🔍 AI analyzing image...";
-  result.style.color = "white";
-
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append("image", fileInput.files[0]);
+
+  result.innerHTML = "🔍 Analyzing image...";
 
   try {
-    const res = await fetch(
-      "https://ai-image-detector-backend-z55k.onrender.com",
+    const response = await fetch(
+      "https://ai-image-detector-backend-z55k.onrender.com/detect",
       {
         method: "POST",
         body: formData
       }
     );
 
-    const data = await res.json();
+    const data = await response.json();
 
     result.innerHTML = `
-      <b>${data.label}</b><br>
+      <b>${data.result}</b><br>
       Confidence: ${data.confidence}
     `;
     result.style.color = "#00ffcc";
 
-  } catch {
+  } catch (err) {
+    console.error(err);
     result.innerHTML = "❌ Backend not responding";
     result.style.color = "red";
   }
