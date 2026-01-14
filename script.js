@@ -4,10 +4,12 @@ async function checkImage() {
 
   if (!file) {
     result.innerHTML = "❌ Upload an image first";
+    result.style.color = "red";
     return;
   }
 
   result.innerHTML = "🔍 AI analyzing image...";
+  result.style.color = "white";
 
   const formData = new FormData();
   formData.append("image", file);
@@ -27,7 +29,10 @@ async function checkImage() {
       <b>${data.label}</b><br>
       Confidence: ${data.confidence}
     `;
-  } catch (e) {
-    result.innerHTML = "❌ AI service not responding";
+    result.style.color = "#00ffcc";
+
+  } catch {
+    result.innerHTML = "❌ Backend not responding";
+    result.style.color = "red";
   }
 }
