@@ -12,27 +12,19 @@ async function checkImage() {
   formData.append("image", fileInput.files[0]);
 
   result.innerHTML = "🔍 Checking image...";
-  result.style.color = "#00ffcc";
 
   try {
     const response = await fetch(
-      "https://ai-image-detector-backend.onrender.com/detect",
+      "https://ai-image-detector-backend-z55k.onrender.com",
       {
         method: "POST",
         body: formData
       }
     );
 
-    if (!response.ok) {
-      throw new Error("API failed");
-    }
-
     const data = await response.json();
 
-    result.innerHTML = `
-      ✅ ${data.result}<br>
-      Confidence: ${data.confidence}%
-    `;
+    result.innerHTML = `✅ ${data.result}<br>Confidence: ${data.confidence}`;
     result.style.color = "#00ffcc";
 
   } catch (error) {
