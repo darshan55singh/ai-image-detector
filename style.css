@@ -14,11 +14,18 @@ body {
   color: #fff;
 }
 
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+..container {
+  width: 380px;
+  padding: 30px;
+  border-radius: 28px; /* ROUND SHAPE */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  text-align: center;
 }
+
 
 .card {
   background: rgba(255, 255, 255, 0.08);
@@ -132,4 +139,18 @@ body::after {
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
   opacity: 0.08;
   z-index: -1;
+}
+.features {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+.features div {
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  border-radius: 14px;
 }
