@@ -2,24 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Image Detector</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>AI Image Authenticity Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card">
-  <h1>AI Image Detector</h1>
-  <p class="subtitle">Detect AI-generated images using real AI models</p>
+  <div class="container">
+    <div class="card">
+      <h1>AI Image Analyzer</h1>
+      <p class="subtitle">Detect AI-generated images (Demo System)</p>
 
-  <input type="file" id="imageInput" accept="image/*" />
+      <input type="file" id="imageInput" accept="image/*" />
+      <button id="analyzeBtn">Analyze Image</button>
 
-  <button onclick="checkImage()">Analyze Image</button>
+      <div id="loading" class="hidden">🔍 Analyzing image…</div>
 
-  <div id="result"></div>
+      <div id="result">
+        <p id="resultText"></p>
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+        <p id="confidenceText"></p>
+      </div>
 
-  <p class="footer">Built by <b>Darshan</b> 🚀</p>
-</div>
+      <footer>Built by Darshan 🚀</footer>
+    </div>
+  </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

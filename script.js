@@ -1,40 +1,41 @@
-async function checkImage() {
-  const fileInput = document.getElementById("imageInput");
-  const resultDiv = document.getElementById("result");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const imageInput = document.getElementById("imageInput");
+const loading = document.getElementById("loading");
+const resultText = document.getElementById("resultText");
+const confidenceText = document.getElementById("confidenceText");
+const progressBar = document.getElementById("progressBar");
 
-  if (!fileInput.files.length) {
-    resultDiv.innerHTML = "❌ Please upload an image";
-    resultDiv.style.color = "red";
+analyzeBtn.addEventListener("click", () => {
+  const file = imageInput.files[0];
+  if (!file) {
+    alert("Please select an image");
     return;
   }
 
-  const formData = new FormData();
-  formData.append("image", fileInput.files[0]);
+  loading.classList.remove("hidden");
+  resultText.textContent = "";
+  confidenceText.textContent = "";
+  progressBar.style.width = "0%";
 
-  resultDiv.innerHTML = "🔍 Analyzing image...";
-  resultDiv.style.color = "#00ffcc";
+  setTimeout(() => {
+    loading.classList.add("hidden");
 
-  try {
-    const response = await fetch(
-      "https://ai-image-detector-backend-z55k.onrender.com/detect",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+    // Demo AI logic
+    const sizeMB = file.size / (1024 * 1024);
+    let confidence;
 
-    const data = await response.json();
+    if (sizeMB < 0.5) confidence = 78;
+    else if (sizeMB < 1.5) confidence = 55;
+    else confidence = 35;
 
-    console.log("BACKEND RESPONSE:", data); // 🔥 IMPORTANT
+    const isAI = confidence > 60;
 
-    resultDiv.innerHTML = `
-      <b>${data.result}</b><br>
-      Confidence: ${data.confidence}
-    `;
+    resultText.textContent = isAI
+      ? "⚠️ Likely AI-Generated Image"
+      : "✅ Likely Real Image";
 
-  } catch (err) {
-    console.error(err);
-    resultDiv.innerHTML = "❌ Backend error";
-    resultDiv.style.color = "red";
-  }
-}
+    confidenceText.textContent = `Confidence: ${confidence}%`;
+    progressBar.style.width = confidence + "%";
+
+  }, 1500);
+});
