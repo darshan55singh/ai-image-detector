@@ -8,33 +8,20 @@
 </head>
 
 <body>
+  <div class="card">
+    <h1>AI Image Analyzer</h1>
+    <p class="subtitle">Detect AI-generated images </p>
 
-  <div class="container">
-    <div class="card">
-      <h1>AI Image Analyzer</h1>
-      <p class="subtitle">Detect AI-generated images (Demo System)</p>
+    <input type="file" id="imageInput" accept="image/*">
+    <button id="analyzeBtn">Analyze Image</button>
 
-      <input type="file" id="imageInput" accept="image/*" />
-      <button id="analyzeBtn">Analyze Image</button>
-
-      <div class="features">
-        <div>⚡ Fast AI Analysis</div>
-        <div>🛡️ Deepfake Detection</div>
-        <div>📊 Confidence Score</div>
-      </div>
-
-      <div id="loading" class="hidden">🔍 Analyzing image…</div>
-
-      <div id="result">
-        <p id="resultText"></p>
-        <div class="progress">
-          <div id="progressBar"></div>
-        </div>
-        <p id="confidenceText"></p>
-      </div>
-
-      <footer>Built by Darshan 🚀</footer>
+    <div class="features">
+      <div>⚡ Fast AI Analysis</div>
+      <div>🛡️ Deepfake Detection</div>
+      <div>📊 Confidence Score</div>
     </div>
+
+    <footer>Built by Darshan 🚀</footer>
   </div>
 
   <script src="script.js"></script>
